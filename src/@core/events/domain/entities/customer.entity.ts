@@ -18,8 +18,8 @@ export class Customer extends AggregateRoot {
         this.name = props.name
     }
 
-    static create(props: CustomerConstructorProps): Customer {
-        return new Customer(props)
+    static create(command: { name: string, cpf: string }) {
+        return new Customer(command)
     }
 
     toJSON() {
