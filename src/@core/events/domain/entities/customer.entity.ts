@@ -1,14 +1,15 @@
-import { AggregateRoot } from "@/@core/commom/domain/aggregate-root"
+import { AggregateRoot } from "../.././../commom/domain/aggregate-root"
+import Cpf from "../.././../commom/domain/value-objects/cpf.vo"
 
 export type CustomerConstructorProps = {
     id?: string
-    cpf: string
+    cpf: Cpf
     name: string
 }
 
 export class Customer extends AggregateRoot {
     id: string
-    cpf: string
+    cpf: Cpf
     name: string
 
     constructor(props: CustomerConstructorProps) {
@@ -19,7 +20,10 @@ export class Customer extends AggregateRoot {
     }
 
     static create(command: { name: string, cpf: string }) {
-        return new Customer(command)
+        return new Customer({
+            name: command.name,
+            cpf: new Cpf(command.cpf)
+        })
     }
 
     toJSON() {
