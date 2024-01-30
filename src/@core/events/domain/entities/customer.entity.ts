@@ -1,6 +1,6 @@
-import Uuid from "../.././../commom/domain/value-objects/uuid.vo"
-import { AggregateRoot } from "../.././../commom/domain/aggregate-root"
-import Cpf from "../.././../commom/domain/value-objects/cpf.vo"
+import Uuid from "../../../common/domain/value-objects/uuid.vo"
+import { AggregateRoot } from "../../../common/domain/aggregate-root"
+import Cpf from "../../../common/domain/value-objects/cpf.vo"
 
 export class CustomerId extends Uuid { }
 
