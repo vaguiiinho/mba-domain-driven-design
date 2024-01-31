@@ -57,27 +57,27 @@ export class EventSection extends Entity {
             total_spots_reserved: 0,
         });
 
-        // section.initSpots();
+        section.initSpots();
         return section;
     }
 
-    //   private initSpots() {
-    //     for (let i = 0; i < this.total_spots; i++) {
-    //       this.spots.add(EventSpot.create());
-    //     }
-    //   }
+    private initSpots() {
+        for (let i = 0; i < this.total_spots; i++) {
+            this.spots.add(EventSpot.create());
+        }
+    }
 
-    //   changeName(name: string) {
-    //     this.name = name;
-    //   }
+      changeName(name: string) {
+        this.name = name;
+      }
 
-    //   changeDescription(description: string | null) {
-    //     this.description = description;
-    //   }
+      changeDescription(description: string | null) {
+        this.description = description;
+      }
 
-    //   changePrice(price: number) {
-    //     this.price = price;
-    //   }
+      changePrice(price: number) {
+        this.price = price;
+      }
 
     //   changeLocation(command: { spot_id: EventSpotId; location: string }) {
     //     const spot = this.spots.find((spot) => spot.id.equals(command.spot_id));
@@ -87,18 +87,18 @@ export class EventSection extends Entity {
     //     spot.changeLocation(command.location);
     //   }
 
-    //   publishAll() {
-    //     this.publish();
-    //     this.spots.forEach((spot) => spot.publish());
-    //   }
+      publishAll() {
+        this.publish();
+        this.spots.forEach((spot) => spot.publish());
+      }
 
-    //   publish() {
-    //     this.is_published = true;
-    //   }
+      publish() {
+        this.is_published = true;
+      }
 
-    //   unPublish() {
-    //     this.is_published = false;
-    //   }
+      unPublish() {
+        this.is_published = false;
+      }
 
     //   allowReserveSpot(spot_id: EventSpotId) {
     //     if (!this.is_published) {

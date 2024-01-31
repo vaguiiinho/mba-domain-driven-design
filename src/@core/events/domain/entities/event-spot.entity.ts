@@ -36,17 +36,17 @@ export class EventSpot extends Entity {
         });
     }
 
-    //   changeLocation(location: string) {
-    //     this.location = location;
-    //   }
+    changeLocation(location: string) {
+        this.location = location;
+    }
 
-    //   publish() {
-    //     this.is_published = true;
-    //   }
+      publish() {
+        this.is_published = true;
+      }
 
-    //   unPublish() {
-    //     this.is_published = false;
-    //   }
+      unPublish() {
+        this.is_published = false;
+      }
 
     //   markAsReserved() {
     //     this.is_reserved = true;

@@ -5,7 +5,7 @@ test('deve criar um cliente', () => {
       name: 'João',
       cpf: '99346413050',
     });
-    console.log(customer);
+    // console.log(customer);
     expect(customer).toBeInstanceOf(Customer);
     expect(customer.id).toBeDefined();
     expect(customer.id).toBeInstanceOf(CustomerId);

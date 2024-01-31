@@ -1,7 +1,8 @@
 import { AggregateRoot } from "../../../common/domain/aggregate-root";
 import Uuid from "../../../common/domain/value-objects/uuid.vo";
+import { Event } from "./event.entity";
 
-export class PartnerId extends Uuid {}
+export class PartnerId extends Uuid { }
 
 export type InitEventCommand = {
   name: string;
@@ -20,7 +21,7 @@ export class Partner extends AggregateRoot {
 
   constructor(props: PartnerConstructorProps, id?: PartnerId) {
     super();
-    console.log(props, id);
+    // console.log(props, id);
     this.id =
       typeof props.id === 'string'
         ? new PartnerId(props.id)
@@ -36,17 +37,17 @@ export class Partner extends AggregateRoot {
     return partner;
   }
 
-//   initEvent(command: InitEventCommand) {
-//     return Event.create({
-//       ...command,
-//       partner_id: this.id,
-//     });
-//   }
+  initEvent(command: InitEventCommand) {
+    return Event.create({
+      ...command,
+      partner_id: this.id,
+    });
+  }
 
-//   changeName(name: string) {
-//     this.name = name;
-//     this.addEvent(new PartnerChangedName(this.id, this.name));
-//   }
+  changeName(name: string) {
+    this.name = name;
+    // this.addEvent(new PartnerChangedName(this.id, this.name));
+  }
 
   toJSON() {
     return {

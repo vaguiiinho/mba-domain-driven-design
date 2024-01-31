@@ -87,57 +87,57 @@ export class Event extends AggregateRoot {
         return event;
     }
 
-    //   changeName(name: string) {
-    //     this.name = name;
-    //     this.addEvent(new EventChangedName(this.id, this.name));
-    //   }
+      changeName(name: string) {
+        this.name = name;
+        // this.addEvent(new EventChangedName(this.id, this.name));
+      }
 
-    //   changeDescription(description: string | null) {
-    //     this.description = description;
-    //     this.addEvent(new EventChangedDescription(this.id, this.description));
-    //   }
+      changeDescription(description: string | null) {
+        this.description = description;
+        // this.addEvent(new EventChangedDescription(this.id, this.description));
+      }
 
-    //   changeDate(date: Date) {
-    //     this.date = date;
-    //     this.addEvent(new EventChangedDate(this.id, this.date));
-    //   }
+      changeDate(date: Date) {
+        this.date = date;
+        // this.addEvent(new EventChangedDate(this.id, this.date));
+      }
 
-    //   publishAll() {
-    //     this.publish();
-    //     this._sections.forEach((section) => section.publishAll());
-    //     this.addEvent(
-    //       new EventPublishAll(
-    //         this.id,
-    //         this._sections.map((s) => s.id),
-    //       ),
-    //     );
-    //   }
+      publishAll() {
+        this.publish();
+        this.sections.forEach((section) => section.publishAll());
+        // this.addEvent(
+        //   new EventPublishAll(
+        //     this.id,
+        //     this._sections.map((s) => s.id),
+        //   ),
+        // );
+      }
 
-    //   publish() {
-    //     this.is_published = true;
-    //     this.addEvent(new EventPublish(this.id));
-    //   }
+      publish() {
+        this.is_published = true;
+        // this.addEvent(new EventPublish(this.id));
+      }
 
-    //   unPublish() {
-    //     this.is_published = false;
-    //     this.addEvent(new EventUnpublish(this.id));
-    //   }
+      unPublish() {
+        this.is_published = false;
+        // this.addEvent(new EventUnpublish(this.id));
+      }
 
-    //   addSection(command: AddSectionCommand) {
-    //     const section = EventSection.create(command);
-    //     this._sections.add(section);
-    //     this.total_spots += section.total_spots;
-    //     this.addEvent(
-    //       new EventAddedSection(
-    //         this.id,
-    //         section.name,
-    //         section.description,
-    //         section.total_spots,
-    //         section.price,
-    //         this.total_spots,
-    //       ),
-    //     );
-    //   }
+      addSection(command: AddSectionCommand) {
+        const section = EventSection.create(command);
+        this.sections.add(section);
+        this.total_spots += section.total_spots;
+        // this.addEvent(
+        //   new EventAddedSection(
+        //     this.id,
+        //     section.name,
+        //     section.description,
+        //     section.total_spots,
+        //     section.price,
+        //     this.total_spots,
+        //   ),
+        // );
+      }
 
     //   changeSectionInformation(command: {
     //     section_id: EventSectionId;
