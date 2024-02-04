@@ -67,7 +67,14 @@ export class OrderService {
       event_spot_id: spotId,
       amount: section.price,
     });
+
     await this.orderRepo.add(order);
+    event.markSpotAsReserved({
+      section_id: sectionId,
+      spot_id: spotId,
+    });
+    
+    this.eventRepo.add(event);
     await this.uow.commit();
     return order;
   }

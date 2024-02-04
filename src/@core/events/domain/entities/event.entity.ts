@@ -196,21 +196,21 @@ export class Event extends AggregateRoot {
     return section.allowReserveSpot(data.spot_id);
   }
 
-  // markSpotAsReserved(command: {
-  //   section_id: EventSectionId;
-  //   spot_id: EventSpotId;
-  // }) {
-  //   const section = this.sections.find((s) => s.id.equals(command.section_id));
+  markSpotAsReserved(command: {
+    section_id: EventSectionId;
+    spot_id: EventSpotId;
+  }) {
+    const section = this.sections.find((s) => s.id.equals(command.section_id));
 
-  //   if (!section) {
-  //     throw new Error('Section not found');
-  //   }
+    if (!section) {
+      throw new Error('Section not found');
+    }
 
-  //   section.markSpotAsReserved(command.spot_id);
-  //   // this.addEvent(
-  //   //   new EventMarkedSportAsReserved(this.id, section.id, command.spot_id),
-  //   // );
-  // }
+    section.markSpotAsReserved(command.spot_id);
+    // this.addEvent(
+    //   new EventMarkedSportAsReserved(this.id, section.id, command.spot_id),
+    // );
+  }
 
   get sections(): ICollection<EventSection> {
     return this._sections as ICollection<EventSection>;
