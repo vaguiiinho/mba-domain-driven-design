@@ -10,6 +10,7 @@ import { EventIdSchemaType } from './types/event-id.schema-type';
 import { EventSectionIdSchemaType } from './types/event-section-id.schema-type';
 import { EventSpotIdSchemaType } from './types/event-spot-id.schema-type';
 import { PartnerIdSchemaType } from './types/partner-id.schema-type';
+import { Event } from '../../domain/entities/event.entity';
 
 export const PartnerSchema = new EntitySchema<Partner>({
   class: Partner,
