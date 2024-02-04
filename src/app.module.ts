@@ -1,19 +1,15 @@
-import { MikroOrmModule } from "@mikro-orm/nestjs";
-import { Module } from "@nestjs/common";
-import { CustomerSchema, EventSchema, EventSectionSchema, EventSpotSchema, OrderSchema, PartnerSchema, SpotReservationSchema } from "./@core/events/infra/db/schemas";
+import { Module } from '@nestjs/common';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { DatabaseModule } from './database/database.module';
+import { EventsModule } from './events/events.module';
 
 @Module({
   imports: [
-    MikroOrmModule.forFeature([
-      CustomerSchema,
-      PartnerSchema,
-      EventSchema,
-      EventSectionSchema,
-      EventSpotSchema,
-      OrderSchema,
-      SpotReservationSchema,
-    ]),
+    DatabaseModule,
+    EventsModule,
   ],
-  
+  controllers: [AppController],
+  providers: [AppService],
 })
-export class EventsModule {}
+export class AppModule {}
