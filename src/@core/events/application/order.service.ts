@@ -53,41 +53,50 @@ export class OrderService {
     if (spotReservation) {
       throw new Error('Spot already reserved');
     }
-
-    const spotReservationCreated = SpotReservation.create({
-      spot_id: spotId,
-      customer_id: customer.id,
-    });
-
-    await this.spotReservationRepo.add(spotReservationCreated);
-    try {
-      const section = event.sections.find((s) => s.id.equals(sectionId));
-
-      const order = Order.create({
-        customer_id: customer.id,
-        event_spot_id: spotId,
-        amount: section.price,
-      });
-
-      await this.orderRepo.add(order);
-      event.markSpotAsReserved({
-        section_id: sectionId,
+    return this.uow.runTransaction(async () => {
+      const spotReservationCreated = SpotReservation.create({
         spot_id: spotId,
+        customer_id: customer.id,
       });
 
-      this.eventRepo.add(event);
-      await this.uow.commit();
-      return order;
-    }
-    catch (e) {
-      const section = event.sections.find((s) => s.id.equals(sectionId));
-      const order = Order.create({
-        customer_id: customer.id,
-        event_spot_id: spotId,
-        amount: section.price,
-      });
-      order.cancel();
-      await this.uow.commit();
-    }
+      await this.spotReservationRepo.add(spotReservationCreated);
+      try {
+        await this.uow.commit();
+        const section = event.sections.find((s) => s.id.equals(sectionId));
+        // await this.paymentGateway.payment({
+        //   token: input.card_token,
+        //   amount: section.price,
+        // });
+
+        const order = Order.create({
+          customer_id: customer.id,
+          event_spot_id: spotId,
+          amount: section.price,
+        });
+        // order.pay();
+        await this.orderRepo.add(order);
+
+        event.markSpotAsReserved({
+          section_id: sectionId,
+          spot_id: spotId,
+        });
+
+        this.eventRepo.add(event);
+
+        await this.uow.commit();
+        return order;
+      } catch (e) {
+        const section = event.sections.find((s) => s.id.equals(sectionId));
+        const order = Order.create({
+          customer_id: customer.id,
+          event_spot_id: spotId,
+          amount: section.price,
+        });
+        order.cancel();
+        // this.orderRepo.add(order);
+        await this.uow.commit();
+        throw new Error('Aconteceu um erro reservar o seu lugar');
+      }
+    });
   }
 }
