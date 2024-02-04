@@ -1,7 +1,7 @@
 import { AnyCollection, ICollection, MyCollectionFactory } from "../../../common/domain/my-collection";
 import { Entity } from "../../../common/domain/entity";
 import Uuid from "../../../common/domain/value-objects/uuid.vo";
-import { EventSpot } from "./event-spot.entity";
+import { EventSpot, EventSpotId } from "./event-spot.entity";
 
 export class EventSectionId extends Uuid { }
 
@@ -77,13 +77,13 @@ export class EventSection extends Entity {
     this.price = price;
   }
 
-  //   changeLocation(command: { spot_id: EventSpotId; location: string }) {
-  //     const spot = this.spots.find((spot) => spot.id.equals(command.spot_id));
-  //     if (!spot) {
-  //       throw new Error('Spot not found');
-  //     }
-  //     spot.changeLocation(command.location);
-  //   }
+  changeLocation(command: { spot_id: EventSpotId; location: string }) {
+    const spot = this.spots.find((spot) => spot.id.equals(command.spot_id));
+    if (!spot) {
+      throw new Error('Spot not found');
+    }
+    spot.changeLocation(command.location);
+  }
 
   publishAll() {
     this.publish();
