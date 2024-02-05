@@ -13,7 +13,7 @@ Content-Type: application/json
 }
 
 ###
-@partner_id = 076a2ae5-b4ed-438d-89fc-e1a4b42372ba
+@partner_id = 662b38fc-565c-46a5-b592-12e93c5987ca
 
 ###
 GET http://localhost:3000/customers
@@ -28,7 +28,7 @@ Content-Type: application/json
 }
 
 ###
-@customer_id = 61f0ff6e-0bb1-4635-8899-4b88ce46975b
+@customer_id = ad628dac-9b24-4828-a348-392c43f83c67
 
 ###
 GET http://localhost:3000/events
@@ -45,7 +45,7 @@ Content-Type: application/json
 }
 
 ###
-@event_id = 3181cb03-59e6-469a-9942-358b07882a72
+@event_id = e39d6e76-c965-4abd-9ecd-15844db74d70
 
 ###
 GET http://localhost:3000/events/{{event_id}}/sections
@@ -65,7 +65,7 @@ Content-Type: application/json
 PUT http://localhost:3000/events/{{event_id}}/publish-all
 
 ###
-@section_id = 42a5f5b1-30c5-4b2f-b9b8-84e5cc948542
+@section_id = 27287031-a71a-4123-8949-79caf1a7e79f
 
 ###
 PUT http://localhost:3000/events/{{event_id}}/sections/{{section_id}}
@@ -97,6 +97,6 @@ Content-Type: application/json
 {
     "customer_id": "{{customer_id}}",
     "section_id": "{{section_id}}",
-    "spot_id": "96298e63-5a38-4352-b97d-322259f10921",
+    "spot_id": "2181095d-facd-4911-9d4b-837a7d23ea1e",
     "card_token": "tok_visa"
 }

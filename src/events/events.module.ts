@@ -26,6 +26,10 @@ import { ICustomerRepository } from '../@core/events/domain/repositories/custome
 import { IEventRepository } from '../@core/events/domain/repositories/event-repository.interface';
 import { PartnersController } from './partners/partners.controller';
 import { CustomersController } from './customers/customers.controller';
+import { OrdersController } from './orders/orders.controller';
+import { EventsController } from './events/events.controller';
+import { EventSectionsController } from './events/event-sections.controller';
+import { EventSpotsController } from './events/event-spots.controller';
 
 @Module({
     imports: [
@@ -120,6 +124,13 @@ import { CustomersController } from './customers/customers.controller';
             ],
         },
     ],
-    controllers: [PartnersController, CustomersController],
+    controllers: [
+        PartnersController,
+        CustomersController,
+        EventsController,
+        EventSectionsController,
+        EventSpotsController,
+        OrdersController,
+      ],
 })
 export class EventsModule { }
