@@ -1,6 +1,6 @@
 import { EntityManager } from '@mikro-orm/mysql';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
-import { Module } from '@nestjs/common';
+import { Module, OnModuleInit } from '@nestjs/common';
 import { CustomerMysqlRepository } from '../@core/events/infra/db/repositories/customer-mysql.repository';
 import { EventMysqlRepository } from '../@core/events/infra/db/repositories/event-mysql.repository';
 import { OrderMysqlRepository } from '../@core/events/infra/db/repositories/order-mysql.repository';
@@ -30,6 +30,10 @@ import { OrdersController } from './orders/orders.controller';
 import { EventsController } from './events/events.controller';
 import { EventSectionsController } from './events/event-sections.controller';
 import { EventSpotsController } from './events/event-spots.controller';
+import { ApplicationModule } from '../application/application.module';
+import { ApplicationService } from '../@core/common/application/application.service';
+import { DomainEventManager } from '../@core/common/domain/domain-event-manager';
+import { PartnerCreated } from '../@core/events/domain/domain-events/partner-created.event';
 
 @Module({
     imports: [
@@ -42,6 +46,7 @@ import { EventSpotsController } from './events/event-spots.controller';
             OrderSchema,
             SpotReservationSchema,
         ]),
+        ApplicationModule
     ],
     providers: [
         {
@@ -73,9 +78,9 @@ import { EventSpotsController } from './events/event-spots.controller';
             provide: PartnerService,
             useFactory: (
                 partnerRepo: IPartnerRepository,
-                uow: IUnitOfWork,
-            ) => new PartnerService(partnerRepo, uow),
-            inject: ['IPartnerRepository', 'IUnitOfWork'],
+                appService: ApplicationService,
+            ) => new PartnerService(partnerRepo, appService),
+            inject: ['IPartnerRepository', ApplicationService],
         },
         {
             provide: CustomerService,
@@ -131,6 +136,20 @@ import { EventSpotsController } from './events/event-spots.controller';
         EventSectionsController,
         EventSpotsController,
         OrdersController,
-      ],
+    ],
 })
-export class EventsModule { }
+export class EventsModule implements OnModuleInit {
+
+    constructor(
+        private readonly domainEventManager: DomainEventManager,
+    ) { }
+
+    onModuleInit() {
+        this.domainEventManager.register(
+            PartnerCreated.name,
+            (event: PartnerCreated) => {
+                console.log('PartnerCreated event received', event);
+            },
+        );
+    }
+}
