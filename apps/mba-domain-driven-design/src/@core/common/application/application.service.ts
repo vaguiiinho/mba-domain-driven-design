@@ -16,9 +16,9 @@ export class ApplicationService {
       await this.domainEventManager.publish(aggregateRoot);
     }
     await this.uow.commit();
-    // for (const aggregateRoot of aggregateRoots) {
-    //   await this.domainEventManager.publishForIntegrationEvent(aggregateRoot);
-    // }
+    for (const aggregateRoot of aggregateRoots) {
+      await this.domainEventManager.publish(aggregateRoot);
+    }
   }
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
